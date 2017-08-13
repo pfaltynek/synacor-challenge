@@ -1,34 +1,8 @@
+#include "vm.h"
 #include <cstring>
 #include <fstream>
 #include <iostream>
 #include <string>
-
-int cnt = 0;
-short x = 0;
-
-bool get_chalenge_bin_value(std::ifstream &input, short &value) {
-	bool result = true;
-	unsigned char v[2];
-
-	value = 0;
-
-	for (int i = 0; i < 2; i++) {
-		if (input) {
-			if (input >> v[i]) {
-			} else {
-				result = false;
-				break;
-			}
-		} else {
-			result = false;
-			break;
-		}
-	}
-	if (result) {
-		value = v[0] + (v[1] * 256);
-	}
-	return result;
-}
 
 int main(int argc, char *argv[]) {
 	std::ifstream input;
@@ -61,15 +35,9 @@ int main(int argc, char *argv[]) {
 
 	input.unsetf(std::ios::skipws);
 
-	while (get_vm_mem_value(input, value)) {
-		cnt += 2;
-	}
-
-	cnt += sizeof(x);
+	cVM vm(input);
 
 	if (input.is_open()) {
 		input.close();
 	}
-}
-}
 }
