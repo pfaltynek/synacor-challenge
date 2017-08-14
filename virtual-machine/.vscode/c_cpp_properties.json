@@ -36,6 +36,7 @@
             "name": "Win32",
             "includePath": [
                 "c:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include",
+                "c:/Program Files (x86)/Microsoft Visual Studio 14.0/Common7/IDE/Extensions/Microsoft/Microsoft Azure Data Lake Tools for Visual Studio 2015/2.2.2100.0/CppSDK/SDK/include/ucrt/",
                 "${workspaceRoot}"
             ],
             "browse": {
@@ -43,6 +44,7 @@
                 "databaseFilename": "",
                 "path": [
                     "c:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include",
+                    "c:/Program Files (x86)/Microsoft Visual Studio 14.0/Common7/IDE/Extensions/Microsoft/Microsoft Azure Data Lake Tools for Visual Studio 2015/2.2.2100.0/CppSDK/SDK/include/ucrt/",
                     "${workspaceRoot}"
                 ]
             },

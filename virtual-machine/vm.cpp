@@ -41,7 +41,7 @@ cVM::cVM(std::ifstream &input) {
 	}
 }
 
-cVM::RunBinCode() {
+void cVM::RunBinCode() {
 	while(_pc < _bin_code.size()){
 		
 	}

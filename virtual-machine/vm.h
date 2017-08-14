@@ -9,7 +9,7 @@
 class cVM {
   public:
 	cVM(std::ifstream &input);
-	RunBinCode();
+	void RunBinCode();
 
   private:
 	short _pc;
