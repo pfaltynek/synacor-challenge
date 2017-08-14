@@ -41,8 +41,30 @@ cVM::cVM(std::ifstream &input) {
 	}
 }
 
-void cVM::RunBinCode() {
-	while(_pc < _bin_code.size()){
-		
+TRACE_FINISH_REASON cVM::RunBinCode() {
+	TRACE_FINISH_REASON result = TRACE_FINISH_REASON::UNKNOWN;
+	bool terminated = false;
+
+	while (_pc < _bin_code.size() && !terminated) {
+		switch ((INSTRUCTIONS)_bin_code[_pc]) {
+			case INSTRUCTIONS::HALT:
+				// stop execution and terminate the program
+				result = TRACE_FINISH_REASON::HALTED;
+				terminated = true;
+				break;
+			case INSTRUCTIONS::OUT:
+				_pc++;
+
+				_pc++;
+				break;
+			case INSTRUCTIONS::NOOP:
+				_pc++;
+				break;
+			default:
+
+				break;
+		}
 	}
+
+	return result;
 }

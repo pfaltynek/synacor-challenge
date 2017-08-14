@@ -6,10 +6,22 @@
 #include <stack>
 #include <vector>
 
+typedef enum {
+	UNKNOWN,
+	HALTED,
+	STACK_EMPTY
+} TRACE_FINISH_REASON;
+
+typedef enum {
+	HALT = 0,
+	OUT = 19,
+	NOOP = 21
+} INSTRUCTIONS;
+
 class cVM {
   public:
 	cVM(std::ifstream &input);
-	void RunBinCode();
+	TRACE_FINISH_REASON RunBinCode();
 
   private:
 	short _pc;
