@@ -1,3 +1,3 @@
-# advent-of-code-2016-cpp
+# synacor-challenge
 
-see http://adventofcode.com/2016/
+see https://challenge.synacor.com
