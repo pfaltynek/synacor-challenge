@@ -9,6 +9,7 @@
 		"xtree": "cpp",
 		"xutility": "cpp",
 		"regex": "cpp",
-		"xlocmes": "cpp"
+		"xlocmes": "cpp",
+		"xlocale": "cpp"
 	}
 }

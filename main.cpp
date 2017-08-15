@@ -36,8 +36,11 @@ int main(int argc, char *argv[]) {
 	input.unsetf(std::ios::skipws);
 
 	cVM vm(input);
+	TRACE_FINISH_REASON trace_result;
 
 	if (input.is_open()) {
 		input.close();
 	}
+
+	trace_result = vm.RunBinCode();
 }

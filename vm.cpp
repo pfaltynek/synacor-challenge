@@ -1,4 +1,5 @@
 #include "vm.h"
+#include <iostream>
 
 bool cVM::get_input_value(std::ifstream &input, short &value) {
 	bool result = true;
@@ -52,16 +53,23 @@ TRACE_FINISH_REASON cVM::RunBinCode() {
 				result = TRACE_FINISH_REASON::HALTED;
 				terminated = true;
 				break;
+			case INSTRUCTIONS::JMP:
+				_pc++;
+				_pc = _bin_code[_pc];
+				break;
 			case INSTRUCTIONS::OUT:
 				_pc++;
-
+				std::cout << (char)_bin_code[_pc];
 				_pc++;
 				break;
 			case INSTRUCTIONS::NOOP:
 				_pc++;
 				break;
 			default:
-
+				result = TRACE_FINISH_REASON::UNKNOWN_INSTRUCTION;
+				std::cout << std::endl
+						  << "Unknown instruction: " << _bin_code[_pc] << std::endl;
+				terminated = true;
 				break;
 		}
 	}
