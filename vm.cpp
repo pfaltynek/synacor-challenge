@@ -37,7 +37,7 @@ cVM::cVM(std::ifstream &input) {
 	while (!_stack.empty()) {
 		_stack.pop();
 	}
-	//_memory.clear();
+	_memory.clear();
 	_bin_code.clear();
 
 	while (get_input_value(input, value)) {
@@ -62,7 +62,6 @@ bool cVM::GetSourceValue(unsigned short src_value, unsigned short &result) {
 		if (IsValueRegister(src_value)) {
 			result = _regs[src_value - FIRST_REGISTER_INDEX_VALUE];
 		} else {
-			//result = _memory[src_value];
 			result = src_value;
 		}
 		return true;
@@ -357,6 +356,60 @@ TRACE_FINISH_REASON cVM::RunBinCode() {
 					result = TRACE_FINISH_REASON::INVALID_NUMBER;
 					terminated = true;
 				}
+				break;
+			case INSTRUCTIONS::RMEM:
+				_pc++;
+				op1 = _bin_code[_pc];
+				_pc++;
+				if (IsValueMemoryAddress(_bin_code[_pc])) {
+					tmp = _memory[_bin_code[_pc]];
+					if (!SetTargetValue(op1, tmp)) {
+						result = TRACE_FINISH_REASON::REGISTER_REQUIRED;
+						terminated = true;
+					}
+					_pc++;
+				} else {
+					result = TRACE_FINISH_REASON::MEMORY_ADDRESS_REQUIRED;
+					terminated = true;
+				}
+				break;
+			case INSTRUCTIONS::WMEM:
+				_pc++;
+				if (IsValueMemoryAddress(_bin_code[_pc])) {
+					op1 = _bin_code[_pc];
+					_pc++;
+					if (GetSourceValue(_bin_code[_pc], op2)) {
+						_memory[op1] = op2;
+						_pc++;
+					} else {
+						result = TRACE_FINISH_REASON::INVALID_NUMBER;
+						terminated = true;
+					}
+				} else {
+					result = TRACE_FINISH_REASON::MEMORY_ADDRESS_REQUIRED;
+					terminated = true;
+				}
+				break;
+			case INSTRUCTIONS::CALL:
+				_pc++;
+				if (GetSourceValue(_bin_code[_pc], op1)) {
+					_pc++;
+					_stack.push(_pc);
+					_pc = op1;
+				} else {
+					result = TRACE_FINISH_REASON::INVALID_NUMBER;
+					terminated = true;
+				}
+				break;
+			case INSTRUCTIONS::RET:
+				if (_stack.empty()) {
+					result = TRACE_FINISH_REASON::STACK_EMPTY;
+					terminated = true;
+					break;
+				}
+				op1 = _stack.top();
+				_stack.pop();
+				_pc = op1;
 				break;
 			case INSTRUCTIONS::OUT:
 				_pc++;
