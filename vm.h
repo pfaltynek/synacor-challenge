@@ -12,7 +12,7 @@ typedef enum {
 	UNKNOWN_INSTRUCTION,
 	INVALID_NUMBER,
 	REGISTER_REQUIRED,
-	MEMORY_ADDRESS_REQUIRED,
+	INVALID_MEMORY_ADDRESS,
 	STACK_EMPTY,
 } TRACE_FINISH_REASON;
 
@@ -37,7 +37,7 @@ typedef enum {
 	CALL = 17,
 	RET = 18,
 	OUT = 19,
-	//IN = 20,
+	IN = 20,
 	NOOP = 21
 }
 INSTRUCTIONS;
@@ -60,7 +60,6 @@ class cVM {
   private:
 	short _pc;
 	short _regs[8];
-	std::map<unsigned short, unsigned short> _memory;
 	std::stack<unsigned short> _stack;
 	std::vector<unsigned short> _bin_code;
 };

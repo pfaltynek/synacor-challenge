@@ -37,11 +37,13 @@ cVM::cVM(std::ifstream &input) {
 	while (!_stack.empty()) {
 		_stack.pop();
 	}
-	_memory.clear();
 	_bin_code.clear();
 
 	while (get_input_value(input, value)) {
 		_bin_code.push_back(value);
+	}
+	while (_bin_code.size() < 32768) {
+		_bin_code.push_back(0);
 	}
 }
 
@@ -361,32 +363,41 @@ TRACE_FINISH_REASON cVM::RunBinCode() {
 				_pc++;
 				op1 = _bin_code[_pc];
 				_pc++;
-				if (IsValueMemoryAddress(_bin_code[_pc])) {
-					tmp = _memory[_bin_code[_pc]];
-					if (!SetTargetValue(op1, tmp)) {
-						result = TRACE_FINISH_REASON::REGISTER_REQUIRED;
+				if (GetSourceValue(_bin_code[_pc], op2)) {
+					_pc++;
+					if (op2 < _bin_code.size()) {
+						tmp = _bin_code[op2];
+						if (!SetTargetValue(op1, tmp)) {
+							result = TRACE_FINISH_REASON::REGISTER_REQUIRED;
+							terminated = true;
+						}
+					} else {
+						result = TRACE_FINISH_REASON::INVALID_MEMORY_ADDRESS;
 						terminated = true;
 					}
-					_pc++;
 				} else {
-					result = TRACE_FINISH_REASON::MEMORY_ADDRESS_REQUIRED;
+					result = TRACE_FINISH_REASON::INVALID_NUMBER;
 					terminated = true;
 				}
 				break;
 			case INSTRUCTIONS::WMEM:
 				_pc++;
-				if (IsValueMemoryAddress(_bin_code[_pc])) {
-					op1 = _bin_code[_pc];
+				if (GetSourceValue(_bin_code[_pc], op1)) {
 					_pc++;
 					if (GetSourceValue(_bin_code[_pc], op2)) {
-						_memory[op1] = op2;
-						_pc++;
+						if (op2 < _bin_code.size()) {
+							_bin_code[op1] = op2;
+							_pc++;
+						} else {
+							result = TRACE_FINISH_REASON::INVALID_MEMORY_ADDRESS;
+							terminated = true;
+						}
 					} else {
 						result = TRACE_FINISH_REASON::INVALID_NUMBER;
 						terminated = true;
 					}
 				} else {
-					result = TRACE_FINISH_REASON::MEMORY_ADDRESS_REQUIRED;
+					result = TRACE_FINISH_REASON::INVALID_NUMBER;
 					terminated = true;
 				}
 				break;
@@ -421,6 +432,9 @@ TRACE_FINISH_REASON cVM::RunBinCode() {
 					terminated = true;
 				}
 				break;
+			case INSTRUCTIONS::IN:
+
+				break;
 			case INSTRUCTIONS::NOOP:
 				_pc++;
 				break;
@@ -435,3 +449,4 @@ TRACE_FINISH_REASON cVM::RunBinCode() {
 
 	return result;
 }
+
