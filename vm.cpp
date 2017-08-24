@@ -1,5 +1,6 @@
 #include "vm.h"
 #include <iostream>
+#include <string>
 
 #define FIRST_REGISTER_INDEX_VALUE 32768
 #define LAST_REGISTER_INDEX_VALUE 32775
@@ -31,6 +32,8 @@ bool cVM::get_input_value(std::ifstream &input, unsigned short &value) {
 cVM::cVM(std::ifstream &input) {
 	unsigned short value;
 	_pc = 0;
+	_input_buffer = "";
+
 	for (int i = 0; i < 8; i++) {
 		_regs[i] = 0;
 	}
@@ -433,7 +436,20 @@ TRACE_FINISH_REASON cVM::RunBinCode() {
 				}
 				break;
 			case INSTRUCTIONS::IN:
-
+				char c;
+				_pc++;
+				op1 = _bin_code[_pc];
+				_pc++;
+				if (_input_buffer.empty()) {
+					getline(std::cin, _input_buffer);
+					_input_buffer.push_back('\n');
+				}
+				tmp = _input_buffer[0];
+				_input_buffer = _input_buffer.substr(1);
+				if (!SetTargetValue(op1, tmp)) {
+					result = TRACE_FINISH_REASON::REGISTER_REQUIRED;
+					terminated = true;
+				}
 				break;
 			case INSTRUCTIONS::NOOP:
 				_pc++;
@@ -449,4 +465,3 @@ TRACE_FINISH_REASON cVM::RunBinCode() {
 
 	return result;
 }
-

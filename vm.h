@@ -62,6 +62,7 @@ class cVM {
 	short _regs[8];
 	std::stack<unsigned short> _stack;
 	std::vector<unsigned short> _bin_code;
+	std::string _input_buffer;
 };
 
 #endif
