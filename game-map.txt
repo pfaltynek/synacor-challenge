@@ -1,0 +1,86 @@
+== Foothills -base == 
+You find yourself standing at the base of an enormous mountain.  At its base to
+the north, there is a massive doorway.  A sign nearby reads "Keep out!  Definite
+ly no treasure within!"
+
+Things of interest here:
+- tablet
+
+There are 2 exits:
+- doorway
+- south
+--------------------------------------------------------------------------------
+== Foothills - leave ==
+As you begin to leave, you feel the urge for adventure pulling you back...
+
+There is 1 exit:
+- north
+--------------------------------------------------------------------------------
+== Dark cave ==
+This seems to be the mouth of a deep cave.  As you peer north into the darkness,
+ you think you hear the echoes of bats deeper within.
+
+There are 2 exits:
+- north
+- south
+--------------------------------------------------------------------------------
+== Dark cave - 2 ==
+The cave is somewhat narrow here, and the light from the doorway to the south is
+ quite dim.
+
+There are 2 exits:
+- north
+- south
+--------------------------------------------------------------------------------
+== Dark cave - 3 ==
+The cave acoustics dramatically change as you find yourself at a legde above a l
+arge chasm.  There is barely enough light here to notice a rope bridge leading o
+ut into the dark emptiness.
+
+There are 2 exits:
+- bridge
+- south
+--------------------------------------------------------------------------------
+== Rope bridge ==
+This rope bridge creaks as you walk along it.  You aren't sure how old it is, or
+ whether it can even support your weight.
+
+There are 2 exits:
+- continue
+- back
+--------------------------------------------------------------------------------
+== Falling through the air! ==
+As you continue along the bridge, it snaps!  You try to grab the bridge, but it
+evades your grasp in the darkness.  You are plummeting quickly downward into the
+ chasm...
+
+There is 1 exit:
+- down
+--------------------------------------------------------------------------------
+== Moss cavern ==
+You are standing in a large cavern full of bioluminescent moss.  It must have br
+oken your fall!  The cavern extends to the east and west; at the west end, you t
+hink you see a passage leading out of the cavern.
+
+There are 2 exits:
+- west
+- east
+--------------------------------------------------------------------------------
+== Moss cavern - 2 ==
+You are standing in a large cavern full of bioluminescent moss.  The cavern exte
+nds to the west.
+
+Things of interest here:
+- empty lantern
+
+There is 1 exit:
+- west
+--------------------------------------------------------------------------------
+== Moss cavern - 3 ==
+You are standing in a large cavern full of bioluminescent moss.  The cavern exte
+nds to the east.  There is a crevise in the rocks which opens into a passage.
+
+There are 2 exits:
+- east
+- passage
+--------------------------------------------------------------------------------
